@@ -1,11 +1,12 @@
 package examen;
 
+import java.util.ArrayList;
+
 public class Empleado {
     private String nombre;
     private String DNI;
     private int numeroEmpleado;
     private double complejidadTrabajos;
-    private double calidadTrabajos;
     public String getNombre() {
 		return nombre;
 	}
@@ -30,10 +31,10 @@ public class Empleado {
 		this.numeroEmpleado = numeroEmpleado;
 	}
 
-	private double proactividad;
+	private double calidadTrabajos;
+    private double proactividad;
     private double compañerismo;
 
-    // Constructor
     public Empleado(String nombre, String DNI, int numeroEmpleado) {
         this.nombre = nombre;
         this.DNI = DNI;
@@ -44,7 +45,6 @@ public class Empleado {
         this.compañerismo = 0.0;
     }
 
-    // Métodos para establecer los parámetros evaluativos
     public void setComplejidadTrabajos(double complejidadTrabajos) {
         if (complejidadTrabajos >= 0 && complejidadTrabajos <= 1) {
             this.complejidadTrabajos = complejidadTrabajos;
@@ -77,7 +77,6 @@ public class Empleado {
         }
     }
 
-    // Métodos para obtener los parámetros evaluativos
     public double getComplejidadTrabajos() {
         return complejidadTrabajos;
     }
@@ -93,5 +92,29 @@ public class Empleado {
     public double getCompañerismo() {
         return compañerismo;
     }
+
+    public double calcularMedia() {
+        return (complejidadTrabajos + calidadTrabajos + proactividad + compañerismo) / 4;
+    }
+
+    public static Empleado max(ArrayList<Empleado> empleados) {
+        if (empleados.isEmpty()) {
+            return null;
+        }
+
+        Empleado maxEmpleado = empleados.get(0);
+        double maxMedia = maxEmpleado.calcularMedia();
+
+        for (Empleado empleado : empleados) {
+            double media = empleado.calcularMedia();
+            if (media > maxMedia) {
+                maxEmpleado = empleado;
+                maxMedia = media;
+            }
+        }
+
+        return maxEmpleado;
+    }
 }
+
 

@@ -14,7 +14,8 @@ public class Main {
             System.out.println("1. Crear empleado");
             System.out.println("2. Listar empleados");
             System.out.println("3. Borrar empleado por DNI");
-            System.out.println("4. Salir");
+            System.out.println("4. Encontrar empleado con mayor media de parámetros");
+            System.out.println("5. Salir");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
             scanner.nextLine(); // Consumir el salto de línea después de nextInt()
@@ -30,13 +31,16 @@ public class Main {
                     borrarEmpleadoPorDNI();
                     break;
                 case 4:
+                    encontrarEmpleadoConMayorMedia();
+                    break;
+                case 5:
                     System.out.println("¡Hasta luego!");
                     break;
                 default:
                     System.out.println("Opción no válida. Por favor, seleccione una opción del menú.");
             }
-        } while (opcion != 4);
-        
+        } while (opcion != 5);
+
         scanner.close();
     }
 
@@ -82,5 +86,15 @@ public class Main {
             System.out.println("No se encontró ningún empleado con el DNI especificado.");
         }
     }
-}
 
+    private static void encontrarEmpleadoConMayorMedia() {
+        Empleado empleadoMaxMedia = Empleado.max(listaEmpleados);
+        if (empleadoMaxMedia != null) {
+            System.out.println("Empleado con mayor media de parámetros:");
+            System.out.println("Nombre: " + empleadoMaxMedia.getNombre() + ", DNI: " + empleadoMaxMedia.getDNI() + ", Número de empleado: " + empleadoMaxMedia.getNumeroEmpleado());
+            System.out.println("Media de parámetros: " + empleadoMaxMedia.calcularMedia());
+        } else {
+            System.out.println("No hay empleados para calcular la media.");
+        }
+    }
+}
